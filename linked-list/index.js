@@ -1,9 +1,9 @@
 module.exports = class LinkedList {
 	/**
 	 * #constructor
-   * 	Can initalize empty
-   *  Can initialize with one item
-   *  Can initialize with multipule items
+	 * 	Can initalize empty
+	 *  Can initialize with one item
+	 *  Can initialize with multipule items
 	 */
 	constructor(...values) {
 		this.head = null
@@ -13,7 +13,7 @@ module.exports = class LinkedList {
 
 	/**
 	 * #_addSingleValueToHead
-   * 	Can add one item
+	 * 	Can add one item
 	 * 	increments list length
 	 */
 	_addSingleValueToHead(value) {
@@ -25,9 +25,9 @@ module.exports = class LinkedList {
 
 	/**
 	 * #addToHead
-   * 	Can add one item
-   *  Can add multiple items
-   *  Can be chained
+	 * 	Can add one item
+	 *  Can add multiple items
+	 *  Can be chained
 	 */
 	addToHead(...values) {
 		values.forEach(value => this._addSingleValueToHead(value))
@@ -36,9 +36,9 @@ module.exports = class LinkedList {
 
 	/**
 	 * #removeFromHead
-   *  Can remove the item from the head
-   *  Returns the removed value
-   *  Returns undefinded if there is nothing to remove
+	 *  Can remove the item from the head
+	 *  Returns the removed value
+	 *  Returns undefinded if there is nothing to remove
 	 */
 	removeFromHead() {
 		if (this.length === 0) {
@@ -53,8 +53,8 @@ module.exports = class LinkedList {
 
 	/**
 	 * #find
-   *	Can find a node
-   * 	Returns null if not found
+	 *	Can find a node
+	 * 	Returns null if not found
 	 */
 	find(value) {
 		let node = this.head
@@ -72,10 +72,10 @@ module.exports = class LinkedList {
 
 	/**
 	 * #remove
-   * 	Returns undefined it nothing is removed
-   * 	Removes an item
-   * 	Removes items in a chain
-   * 	Returns undefinded is the list has no items
+	 * 	Returns undefined it nothing is removed
+	 * 	Removes an item
+	 * 	Removes items in a chain
+	 * 	Returns undefinded is the list has no items
 	 */
 	remove(value) {
 		if (this.length === 0) {
@@ -109,12 +109,12 @@ module.exports = class LinkedList {
 
 	/**
 	 * #map
-   *	Will map with the provided function
-   *	Will return a new list in the right order
-   *	Will return an empty list if the parameter is not a function
-   *	Will return an empty list from an empty list
+	 *	Will map with the provided function
+	 *	Will return a new list in the right order
+	 *	Will return an empty list if the parameter is not a function
+	 *	Will return an empty list from an empty list
 	 *	Does not alter the original list
-   */
+	 */
 	map(func = () => {}) {
 		if (this.length === 0 || typeof func !== 'function') {
 			return new LinkedList()
@@ -131,15 +131,15 @@ module.exports = class LinkedList {
 
 	/**
 	 * #reduce
-   * 	Will return null with and empty list and no accumulator
-   *  Will return the accumulator with an empty list
-   *  Will return null with a list if:
+	 * 	Will return null with and empty list and no accumulator
+	 *  Will return the accumulator with an empty list
+	 *  Will return null with a list if:
 	 *  	the first parameter is not a function no and accumulator
-   *  Will return the accumulator with a list if:
+	 *  Will return the accumulator with a list if:
 	 *  	the first parameter is not a function
-   *  Will reduce with the function provided and no accumulator
-   *  Will reduce with the function provided and include a starting accumulator
-   *  Accumulator will use the head node value, if not set
+	 *  Will reduce with the function provided and no accumulator
+	 *  Will reduce with the function provided and include a starting accumulator
+	 *  Accumulator will use the head node value, if not set
 	 */
 	reduce(func = () => {}, accumulator) {
 		if (this.length === 0 || typeof func !== 'function') {
@@ -160,11 +160,11 @@ module.exports = class LinkedList {
 
 	/**
 	 * #filter
-   *	Will return an empty list from an empty list
-   *	Will return an empty list if parameter is not a function
-   *	Does not alter the original list
-   *	Filters the list
-   *	Keeps the order of the items in the new list
+	 *	Will return an empty list from an empty list
+	 *	Will return an empty list if parameter is not a function
+	 *	Does not alter the original list
+	 *	Filters the list
+	 *	Keeps the order of the items in the new list
 	 */
 	filter(func = () => {}) {
 		if (this.length === 0 || typeof func !== 'function') {

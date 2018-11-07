@@ -18,20 +18,19 @@ module.exports = class BinaryTree {
 		}
 
 		let currentNode = this.head
-		const node = new BinaryTreeNode(value)
 
 		while (currentNode) {
-			if (node.value < currentNode.value) {
+			if (value < currentNode.value) {
 				if (currentNode.left) {
 					currentNode = currentNode.left
 				} else {
-					currentNode.left = node
+					currentNode.left = new BinaryTreeNode(value)
 				}
-			} else if (node.value > currentNode.value) {
+			} else if (value > currentNode.value) {
 				if (currentNode.right) {
 					currentNode = currentNode.right
 				} else {
-					currentNode.right = node
+					currentNode.right = new BinaryTreeNode(value)
 				}
 			} else {
 				return this
@@ -41,7 +40,7 @@ module.exports = class BinaryTree {
 	}
 
 	depthFirstSearch(value) {
-		const stack = []
+		let stack = []
 		let foundNode
 		stack.push(this.head)
 
@@ -50,6 +49,7 @@ module.exports = class BinaryTree {
 
 			if (node.value === value) {
 				foundNode = node
+				stack = []
 			}
 
 			if (node.right && !foundNode) {
@@ -65,7 +65,7 @@ module.exports = class BinaryTree {
 	}
 
 	breadthFristSearch(value) {
-		const queue = []
+		let queue = []
 		let foundNode
 		queue.push(this.head)
 
@@ -74,6 +74,7 @@ module.exports = class BinaryTree {
 
 			if (node.value === value) {
 				foundNode = node
+				queue = []
 			}
 
 			if (node.left && !foundNode) {

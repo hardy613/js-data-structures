@@ -65,23 +65,23 @@ module.exports = class BinaryTree {
 	}
 
 	breadthFristSearch(value) {
-		const stack = []
+		const queue = []
 		let foundNode
-		stack.push(this.head)
+		queue.push(this.head)
 
-		while (stack.length) {
-			const node = stack.shift()
+		while (queue.length) {
+			const node = queue.shift()
 
 			if (node.value === value) {
 				foundNode = node
 			}
 
 			if (node.left && !foundNode) {
-				stack.push(node.left)
+				queue.push(node.left)
 			}
 
 			if (node.right && !foundNode) {
-				stack.push(node.right)
+				queue.push(node.right)
 			}
 		}
 

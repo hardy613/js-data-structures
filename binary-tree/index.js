@@ -34,7 +34,7 @@ module.exports = class BinaryTree {
 					currentNode.right = node
 				}
 			} else {
-				break
+				return this
 			}
 		}
 		return this

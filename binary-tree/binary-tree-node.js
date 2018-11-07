@@ -3,6 +3,5 @@ module.exports = class BinaryTreeNode {
 		this.value = value
 		this.left = null
 		this.right = null
-		this.searched = false
 	}
 }

@@ -105,9 +105,9 @@ describe('LinkedList', () => {
 			list = new LinkedList('one', 'two', 'three', 'four')
 		})
 
-		it('Returns undefined it nothing is removed', () => {
-			const value = list.remove('five')
-			assert.equal(value, undefined)
+		it('Returns the list if nothing is removed', () => {
+			const res = list.remove('five')
+			assert.deepEqual(res, list)
 		})
 
 		it('Removes an item', () => {
@@ -125,8 +125,8 @@ describe('LinkedList', () => {
 			assert.equal(list.head, null)
 		})
 
-		it('Returns undefinded is the list has no items', () => {
-			assert.equal(list.remove('foobar'), undefined)
+		it('Returns ths list if the list has no items', () => {
+			assert.equal(list.remove('foobar'), list)
 		})
 	})
 

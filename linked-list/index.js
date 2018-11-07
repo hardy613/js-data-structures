@@ -72,14 +72,14 @@ module.exports = class LinkedList {
 
 	/**
 	 * #remove
-	 *	Returns undefined it nothing is removed
+	 *	Returns the list if nothing is removed
 	 *	Removes an item
 	 *	Removes items in a chain
-	 *	Returns undefinded is the list has no items
+	 *	Returns the list if the list has no items
 	 */
 	remove(value) {
 		if (this.length === 0) {
-			return undefined
+			return this
 		}
 
 		if (this.head.value === value) {
@@ -99,7 +99,7 @@ module.exports = class LinkedList {
 		}
 
 		if (node === null) {
-			return undefined
+			return this
 		}
 
 		prevNode.next = node.next

@@ -27,7 +27,7 @@ describe('LinkedList', () => {
 	})
 
 	describe('#addToHead', () => {
-		let list = null
+		let list
 		beforeEach(() => {
 			list = new LinkedList()
 		})
@@ -60,7 +60,7 @@ describe('LinkedList', () => {
 	})
 
 	describe('#removeFromHead', () => {
-		let list = null
+		let list
 		before(() => {
 			list = new LinkedList('one', 'two')
 		})
@@ -83,7 +83,7 @@ describe('LinkedList', () => {
 	})
 
 	describe('#find', () => {
-		let list = null
+		let list
 		before(() => {
 			list = new LinkedList('one', 'two', 'three')
 		})
@@ -100,7 +100,7 @@ describe('LinkedList', () => {
 	})
 
 	describe('#remove', () => {
-		let list = null
+		let list
 		before(() => {
 			list = new LinkedList('one', 'two', 'three', 'four')
 		})

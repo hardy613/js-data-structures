@@ -81,12 +81,32 @@ describe('BinaryTree', () => {
 			assert.equal(node, undefined)
 		})
 
-		it('Depth first traversal', () => {
+		it.skip('Depth first traversal', () => {
+			// need a way to validate the stack in the
+			// function call, spy or stub maybe
+		})
+	})
 
+	describe('#depthFirstSearch', () => {
+		let tree
+
+		before(() => {
+			tree = new BinaryTree(50, 25, 75, 100)
 		})
 
-		it('Breadth first traversal', () => {
+		it('Will find a node in a tree', () => {
+			const node = tree.depthFirstSearch(75)
+			assert(node.value, 75)
+		})
 
+		it('Returns undefined when a node is not found', () => {
+			const node = tree.depthFirstSearch(404)
+			assert.equal(node, undefined)
+		})
+
+		it.skip('Breadth first traversal', () => {
+			// need a way to validate the queue in the
+			// function call, spy or stub maybe
 		})
 	})
 })

@@ -13,10 +13,10 @@ module.exports = class BinaryTree {
 	}
 
 	/**
-   * #insert
-   *	Can add one item
-   *	Can add multiple items
-   *	Can be chained
+	 * #insert
+	 *	Can add one item
+	 *	Can add multiple items
+	 *	Can be chained
 	 *	Insert nodes in the correct location
 	 */
 	insert(...values) {
@@ -25,8 +25,8 @@ module.exports = class BinaryTree {
 	}
 
 	/**
-   * #_insertSingleValue
-   *	Can add one item
+	 * #_insertSingleValue
+	 *	Can add one item
 	 *	Insert nodes in the correct location
 	 */
 	_insertSingleValue(value) {

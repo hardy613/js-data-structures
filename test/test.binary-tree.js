@@ -63,4 +63,30 @@ describe('BinaryTree', () => {
 			assert.equal(tree.head.right.right.value, 100)
 		})
 	})
+
+	describe('#depthFirstSearch', () => {
+		let tree
+
+		before(() => {
+			tree = new BinaryTree(50, 25, 75, 100)
+		})
+
+		it('Will find a node in a tree', () => {
+			const node = tree.depthFirstSearch(75)
+			assert(node.value, 75)
+		})
+
+		it('Returns undefined when a node is not found', () => {
+			const node = tree.depthFirstSearch(404)
+			assert.equal(node, undefined)
+		})
+
+		it('Depth first traversal', () => {
+
+		})
+
+		it('Breadth first traversal', () => {
+
+		})
+	})
 })

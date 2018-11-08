@@ -1,8 +1,8 @@
 {
-  "name": "linked-list",
+  "name": "js-data-structures",
   "version": "1.0.0",
-  "description": "",
-  "main": "linked-list.js",
+  "description": "A way for me to learn more on data structures and testing data structures",
+  "main": "",
   "scripts": {
     "test": "mocha",
     "lint": "eslint . --fix"
@@ -13,6 +13,7 @@
     "eslint": "5.8.0",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-import": "2.14.0",
-    "mocha": "5.2.0"
+    "mocha": "5.2.0",
+    "sinon": "7.1.1"
   }
 }

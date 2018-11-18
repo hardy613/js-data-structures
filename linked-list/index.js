@@ -33,8 +33,8 @@ module.exports = class LinkedList {
 	}
 
 	/**
-	 *	Returns the removed value or undefinded if there is
-	 *	nothing to remove
+	 * Returns the removed value or undefinded if there is
+	 * nothing to remove
 	 */
 	removeFromHead() {
 		if (this.length === 0) {
@@ -48,9 +48,9 @@ module.exports = class LinkedList {
 	}
 
 	/**
-	 *	Find and returns a node
-	 *	or returns null if not found
-	 *	@param {any} value - the value to find
+	 * Find and returns a node
+	 * or returns null if not found
+	 * @param {any} value - the value to find
 	 */
 	find(value) {
 		let node = this.head
@@ -67,8 +67,8 @@ module.exports = class LinkedList {
 	}
 
 	/**
-	 *	Removes an item and returns the list
-	 *	@param {any} value - the value to remove
+	 * Removes an item and returns the list
+	 * @param {any} value - the value to remove
 	 */
 	remove(value) {
 		if (this.length === 0) {
@@ -194,6 +194,7 @@ module.exports = class LinkedList {
 			|| index < 0 || this.length <= index) {
 			return undefined
 		}
+
 		if (index === 0) {
 			return this.head
 		}

@@ -289,22 +289,22 @@ describe('LinkedList', () => {
 	})
 
 	describe('#get', () => {
-		it('Returns undefined with no length', () => {
+		it('Returns null with no length', () => {
 			const list = new LinkedList()
 			assert.strictEqual(list.get(404), null)
 		})
 
-		it('Returns undefined if the index is not a number', () => {
+		it('Returns null if the index is not a number', () => {
 			const list = new LinkedList()
 			assert.strictEqual(list.get('test'), null)
 		})
 
-		it('Returns undefined if the index is negative', () => {
+		it('Returns null if the index is negative', () => {
 			const list = new LinkedList()
 			assert.strictEqual(list.get(-1), null)
 		})
 
-		it('Returns undefined if the index is bigger than the length', () => {
+		it('Returns null if the index is bigger than the length', () => {
 			const list = new LinkedList(1, 2, 3)
 			assert.strictEqual(list.get(3), null)
 		})

@@ -40,7 +40,6 @@ module.exports = class LinkedList {
 		if (this.length === 0) {
 			return null
 		}
-
 		const { value } = this.head
 		this.head = this.head.next
 		this.length -= 1
@@ -54,15 +53,12 @@ module.exports = class LinkedList {
 	 */
 	find(value) {
 		let node = this.head
-
 		while (node) {
 			if (node.value === value) {
 				return node
 			}
-
 			node = node.next
 		}
-
 		return node
 	}
 
@@ -79,14 +75,12 @@ module.exports = class LinkedList {
 			this.removeFromHead()
 			return this
 		}
-
 		let prevNode = this.head
 		let node = prevNode.next
 		while (node) {
 			if (node.value === value) {
 				break
 			}
-
 			prevNode = node
 			node = node.next
 		}
@@ -94,7 +88,6 @@ module.exports = class LinkedList {
 		if (node === null) {
 			return this
 		}
-
 		prevNode.next = node.next
 		this.length -= 1
 		return this
@@ -112,7 +105,6 @@ module.exports = class LinkedList {
 		if (this.length === 0 || typeof func !== 'function') {
 			return new LinkedList()
 		}
-
 		const _map = (node, list) => {
 			if (node.next) {
 				_map(node.next, list)
@@ -168,7 +160,6 @@ module.exports = class LinkedList {
 		if (this.length === 0 || typeof func !== 'function') {
 			return new LinkedList()
 		}
-
 		const _filter = (node, list) => {
 			if (node.next) {
 				_filter(node.next, list)

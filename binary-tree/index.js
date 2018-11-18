@@ -1,7 +1,6 @@
 const BinaryTreeNode = require('./binary-tree-node')
 
 module.exports = class BinaryTree {
-
 	constructor(...values) {
 		this.head = null
 		this.insert(...values)
@@ -17,9 +16,7 @@ module.exports = class BinaryTree {
 			this.head = new BinaryTreeNode(value)
 			return this
 		}
-
 		let currentNode = this.head
-
 		while (currentNode) {
 			if (value < currentNode.value) {
 				if (currentNode.left) {
@@ -41,10 +38,6 @@ module.exports = class BinaryTree {
 	}
 
 	search(value) {
-		if (!this.head) {
-			return undefined
-		}
-
 		let node = this.head
 		while (node) {
 			if (node.value === value) {
@@ -57,6 +50,6 @@ module.exports = class BinaryTree {
 				node = node.right
 			}
 		}
-		return undefined
+		return null
 	}
 }

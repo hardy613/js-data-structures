@@ -38,7 +38,7 @@ module.exports = class LinkedList {
 	 */
 	removeFromHead() {
 		if (this.length === 0) {
-			return undefined
+			return null
 		}
 
 		const { value } = this.head
@@ -192,7 +192,7 @@ module.exports = class LinkedList {
 	get(index = 0) {
 		if (this.length === 0 || Number.isNaN(index)
 			|| index < 0 || this.length <= index) {
-			return undefined
+			return null
 		}
 
 		if (index === 0) {
@@ -207,6 +207,6 @@ module.exports = class LinkedList {
 			node = node.next
 			i += 1
 		}
-		return undefined
+		return null
 	}
 }

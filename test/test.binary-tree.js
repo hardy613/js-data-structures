@@ -99,7 +99,7 @@ describe('BinaryTree', () => {
 		})
 
 		it('Returns undefined when a node is not found', () => {
-			const node = tree.depthFirstSearch(404)
+			const node = tree.breadthFirstSearch(404)
 			assert.equal(node, undefined)
 		})
 

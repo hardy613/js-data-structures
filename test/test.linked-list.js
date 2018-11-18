@@ -2,7 +2,6 @@ const assert = require('assert')
 const LinkedList = require('../linked-list')
 
 describe('LinkedList', () => {
-
 	describe('#constructor', () => {
 		it('Can initalize empty', () => {
 			const list = new LinkedList()
@@ -210,6 +209,48 @@ describe('LinkedList', () => {
 				const strings = new LinkedList('n', 'a', 'm', 'u', 'N')
 				assert.equal(strings.reduce(reducer), 'Numan')
 			})
+
+		it('Passes in the index to the reducer', () => {
+			const list = new LinkedList(4, 3, 2, 1, 0)
+			let i = 0
+			list.reduce((acc, cur, index) => {
+				assert.equal(index, i)
+				i += 1
+				return acc + cur
+			}, 0)
+		})
+
+		it('The index starts at 0 with an initialValue', () => {
+			const list = new LinkedList(1, 0)
+			let i = 0
+			list.reduce((acc, cur, index) => {
+				if (i === 0) {
+					assert.equal(index, 0)
+				}
+				i += 1
+				return acc + cur
+			}, 0)
+		})
+
+		it('The index starts at 1 without an initialValue', () => {
+			const list = new LinkedList(1, 0)
+			let i = 0
+			list.reduce((acc, cur, index) => {
+				if (i === 0) {
+					assert.equal(index, 1)
+				}
+				i += 1
+				return acc + cur
+			})
+		})
+
+		it('Passes the list to the reducer', () => {
+			const list = new LinkedList(1, 0)
+			list.reduce((acc, cur, index, reducerList) => {
+				assert.deepEqual(list.head, reducerList)
+				return acc + cur
+			})
+		})
 	})
 
 	describe('#filter', () => {
@@ -244,6 +285,44 @@ describe('LinkedList', () => {
 			assert.equal(filtered.head.next.next.value, 4)
 			assert.equal(filtered.head.next.next.value, 4)
 			assert.equal(filtered.length, 3)
+		})
+	})
+
+	describe('#get', () => {
+		it('Returns undefined with no length', () => {
+			const list = new LinkedList()
+			assert.equal(list.get(404), undefined)
+		})
+
+		it('Returns undefined if the index is not a number', () => {
+			const list = new LinkedList()
+			assert.equal(list.get('test'), undefined)
+		})
+
+		it('Returns undefined if the index is negative', () => {
+			const list = new LinkedList()
+			assert.equal(list.get(-1), undefined)
+		})
+
+		it('Returns undefined if the index is bigger than the length', () => {
+			const list = new LinkedList(1, 2, 3)
+			assert.equal(list.get(3), undefined)
+		})
+
+		it('Returns the head if the index is 0', () => {
+			const list = new LinkedList(1, 2, 3)
+			const node = list.get(0)
+			assert.equal(node.value, 3)
+		})
+
+		it('Returns the proper node', () => {
+			const list = new LinkedList(4, 3, 2, 1, 0)
+			const node1 = list.get(1)
+			const node2 = list.get(2)
+			const node3 = list.get(3)
+			assert.equal(node1.value, 1)
+			assert.equal(node2.value, 2)
+			assert.equal(node3.value, 3)
 		})
 	})
 })

@@ -1,9 +1,10 @@
+/** Represents a LinkedList */
 module.exports = class LinkedList {
 	/**
-	 * #constructor
-	 *	Can initalize empty
-	 *	Can initialize with one item
-	 *	Can initialize with multipule items
+	 * @constructor
+	 * @param {any} values - The values to save in the list
+	 * @example
+	 * const list = new LinkedList('two', 'one', 'zero')
 	 */
 	constructor(...values) {
 		this.head = null
@@ -12,9 +13,8 @@ module.exports = class LinkedList {
 	}
 
 	/**
-	 * #_addSingleValueToHead
-	 *	Can add one item
-	 *	increments list length
+	 * Can add one item and increments list length
+	 * @param {any} value - The value to save in the list
 	 */
 	_addSingleValueToHead(value) {
 		const node = { value }
@@ -24,10 +24,8 @@ module.exports = class LinkedList {
 	}
 
 	/**
-	 * #addToHead
-	 *	Can add one item
-	 *	Can add multiple items
-	 *	Can be chained
+	 * Can add one or many items and can be chained
+	 * @param {any} values - The values to save in the list
 	 */
 	addToHead(...values) {
 		values.forEach(value => this._addSingleValueToHead(value))
@@ -35,10 +33,8 @@ module.exports = class LinkedList {
 	}
 
 	/**
-	 * #removeFromHead
-	 *	Can remove the item from the head
-	 *	Returns the removed value
-	 *	Returns undefinded if there is nothing to remove
+	 *	Returns the removed value or undefinded if there is
+	 *	nothing to remove
 	 */
 	removeFromHead() {
 		if (this.length === 0) {
@@ -52,9 +48,9 @@ module.exports = class LinkedList {
 	}
 
 	/**
-	 * #find
-	 *	Can find a node
-	 *	Returns null if not found
+	 *	Find and returns a node
+	 *	or returns null if not found
+	 *	@param {any} value - the value to find
 	 */
 	find(value) {
 		let node = this.head
@@ -71,11 +67,8 @@ module.exports = class LinkedList {
 	}
 
 	/**
-	 * #remove
-	 *	Returns the list if nothing is removed
-	 *	Removes an item
-	 *	Removes items in a chain
-	 *	Returns the list if the list has no items
+	 *	Removes an item and returns the list
+	 *	@param {any} value - the value to remove
 	 */
 	remove(value) {
 		if (this.length === 0) {
@@ -108,12 +101,12 @@ module.exports = class LinkedList {
 	}
 
 	/**
-	 * #map
-	 *	Will map with the provided function
-	 *	Will return a new list in the right order
-	 *	Will return an empty list if the parameter is not a function
-	 *	Will return an empty list from an empty list
-	 *	Does not alter the original list
+	 * Creates a new list with the results of calling a
+	 * provided function on every element in the calling list
+	 * @param {function} func - the provided function
+	 * @example
+	 * let list = new LinkedList(1, 2, 3, 4, 5)
+	 * list = list.map(number => number * 2)
 	 */
 	map(func = () => {}) {
 		if (this.length === 0 || typeof func !== 'function') {
@@ -130,41 +123,46 @@ module.exports = class LinkedList {
 	}
 
 	/**
-	 * #reduce
-	 *	Will return null with and empty list and no accumulator
-	 *	Will return the accumulator with an empty list
-	 *	Will return null with a list if:
-	 *  	the first parameter is not a function no and accumulator
-	 *	Will return the accumulator with a list if:
-	 *		the first parameter is not a function
-	 *	Will reduce with the function provided and no accumulator
-	 *	Will reduce with the function provided and include a starting accumulator
-	 *	Accumulator will use the head node value, if not set
+	 * Executes a reducer function on each value of the list
+	 * resulting in a single output value.
+	 * The reducer function has four parameters:
+	 * - Accumulator - accumulates the callback's return values
+	 * - Current Value - the value being processed
+	 * - Current Index - Starts at 0 with an initialValue, 1 otherwise.
+	 * - Source - the list being reduced
+	 * @param {function} func - the reducer
+	 * @param {any} initialValue - the starting value
+	 * @example
+	 * const list = new LinkedList(1, 2, 3, 4)
+	 * const total = list.reduce((acc, cur) => acc + cur) // 10
 	 */
-	reduce(func = () => {}, accumulator) {
+	reduce(func = () => {}, initialValue) {
 		if (this.length === 0 || typeof func !== 'function') {
-			return typeof accumulator !== 'undefined' ? accumulator : null
+			return typeof initialValue !== 'undefined' ? initialValue : null
 		}
 		let node = this.head
-		let acc = accumulator
+		let acc = initialValue
+		let i = 0
 		while (node) {
 			if (typeof acc === 'undefined') {
 				acc = node.value
 				node = node.next
+				i += 1
 			}
-			acc = func(acc, node.value)
+			acc = func(acc, node.value, i, this.head)
 			node = node.next
+			i += 1
 		}
 		return acc
 	}
 
 	/**
-	 * #filter
-	 *	Will return an empty list from an empty list
-	 *	Will return an empty list if parameter is not a function
-	 *	Does not alter the original list
-	 *	Filters the list
-	 *	Keeps the order of the items in the new list
+	 * Creates a new List with all elements that pass the test
+	 * implemented by the provided function
+	 * @param {function} func - the provided function
+	 * @example
+	 * const list = new LinkedList(1, 2, 3, 4, 5, 3, 2, 1, 6)
+	 * const filtered = list.filter(val => val > 3)
 	 */
 	filter(func = () => {}) {
 		if (this.length === 0 || typeof func !== 'function') {
@@ -182,5 +180,32 @@ module.exports = class LinkedList {
 			return list
 		}
 		return _filter(this.head, new LinkedList())
+	}
+
+	/**
+	 * Returns a node at the provided index
+	 * @params {number} index - the location of the node to return
+	 * @example
+	 * const list = new LinkedList('two', 'one', 'zero')
+	 * const node = list.get(0) // node.value === 'zero'
+	 */
+	get(index = 0) {
+		if (this.length === 0 || Number.isNaN(index)
+			|| index < 0 || this.length <= index) {
+			return undefined
+		}
+		if (index === 0) {
+			return this.head
+		}
+		let node = this.head.next
+		let i = 1
+		while (node) {
+			if (i === index) {
+				return node
+			}
+			node = node.next
+			i += 1
+		}
+		return undefined
 	}
 }

@@ -2,7 +2,6 @@ const assert = require('assert')
 const BinaryTree = require('../binary-tree')
 
 describe('BinaryTree', () => {
-
 	describe('#constructor', () => {
 		it('Can initialize and empty tree', () => {
 			const tree = new BinaryTree()

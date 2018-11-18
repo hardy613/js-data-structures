@@ -51,12 +51,10 @@ module.exports = class BinaryTree {
 				return node
 			}
 
-			if (value < node.value && node.left) {
+			if (value < node.value) {
 				node = node.left
-			} else if (value > node.value && node.right) {
+			} else if (value > node.value) {
 				node = node.right
-			} else {
-				return undefined
 			}
 		}
 		return undefined

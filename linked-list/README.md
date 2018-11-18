@@ -79,7 +79,7 @@ const total = list.reduce((acc, cur) => acc + cur) // 10
 ```
 
 ### `filter`
-reates a new List with all elements that pass the test implemented by the provided function
+Creates a new List with all elements that pass the test implemented by the provided function
 ```js
 const list = new LinkedList(1, 2, 3, 4, 5, 3, 2, 1, 6)
 const filtered = list.filter(val => val > 3)

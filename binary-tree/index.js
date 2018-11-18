@@ -1,34 +1,17 @@
 const BinaryTreeNode = require('./binary-tree-node')
 
 module.exports = class BinaryTree {
-	/**
-	 * #constructor
-	 *	Can initialize and empty tree
-	 *	Can initialize with one item
-	 *	Can initialize with multiple items
-	 */
+
 	constructor(...values) {
 		this.head = null
 		this.insert(...values)
 	}
 
-	/**
-	 * #insert
-	 *	Can add one item
-	 *	Can add multiple items
-	 *	Can be chained
-	 *	Insert nodes in the correct location
-	 */
 	insert(...values) {
 		values.forEach(value => this._insertSingleValue(value))
 		return this
 	}
 
-	/**
-	 * #_insertSingleValue
-	 *	Can add one item
-	 *	Insert nodes in the correct location
-	 */
 	_insertSingleValue(value) {
 		if (!this.head) {
 			this.head = new BinaryTreeNode(value)

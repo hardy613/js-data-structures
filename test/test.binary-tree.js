@@ -86,7 +86,7 @@ describe('BinaryTree', () => {
 		})
 	})
 
-	describe('#depthFirstSearch', () => {
+	describe('#breadthFirstSearch', () => {
 		let tree
 
 		before(() => {
@@ -94,7 +94,7 @@ describe('BinaryTree', () => {
 		})
 
 		it('Will find a node in a tree', () => {
-			const node = tree.depthFirstSearch(75)
+			const node = tree.breadthFirstSearch(75)
 			assert(node.value, 75)
 		})
 

@@ -7,8 +7,8 @@ is a `Singly Linked List` where the node contains only a `value` and `next` prop
 
 ## API
 - [new Constructor](#new-constructor)
-- [addToHead](#addtohead)
-- [removeFromHead](#removefromhead)
+- [unshift](#addtohead)
+- [shift](#removefromhead)
 - [find](#find)
 - [remove](#remove)
 - [map](#map)
@@ -24,25 +24,25 @@ const oneItemList = new LinkedList('one')
 const multiItemList = new LinkedList('two', 'one', 'zero')
 ```
 
-### `addToHead`
+### `unshift`
 Can add one or many items and can be chained
 ```js
 const list = new LinkedList()
-list.addToHead(1)
+list.unshift(1)
 
 list
   .addTohead(2)
   .addTohead(3)
   .addTohead(4)
 
-list.addToHead(5, 6, 7)
+list.unshift(5, 6, 7)
 ```
 
-### `removeFromHead`
+### `shift`
 Returns the removed value or undefinded if there is nothing to remove
 ```js
 const list = new LinkedList('two', 'one', 'zero')
-const node = list.removeFromHead()
+const node = list.shift()
 ```
 
 ### `find`

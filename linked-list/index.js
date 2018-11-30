@@ -9,14 +9,14 @@ module.exports = class LinkedList {
 	constructor(...values) {
 		this.head = null
 		this.length = 0
-		return this.addToHead(...values)
+		return this.unshift(...values)
 	}
 
 	/**
 	 * Can add one item and increments list length
 	 * @param {any} value - The value to save in the list
 	 */
-	_addSingleValueToHead(value) {
+	_unshiftOneValue(value) {
 		const node = { value }
 		node.next = this.head
 		this.head = node
@@ -27,8 +27,8 @@ module.exports = class LinkedList {
 	 * Can add one or many items and can be chained
 	 * @param {any} values - The values to save in the list
 	 */
-	addToHead(...values) {
-		values.forEach(value => this._addSingleValueToHead(value))
+	unshift(...values) {
+		values.forEach(value => this._unshiftOneValue(value))
 		return this
 	}
 
@@ -36,7 +36,7 @@ module.exports = class LinkedList {
 	 * Returns the removed value or undefinded if there is
 	 * nothing to remove
 	 */
-	removeFromHead() {
+	shift() {
 		if (this.length === 0) {
 			return null
 		}
@@ -72,7 +72,7 @@ module.exports = class LinkedList {
 		}
 
 		if (this.head.value === value) {
-			this.removeFromHead()
+			this.shift()
 			return this
 		}
 		let prevNode = this.head
@@ -95,23 +95,56 @@ module.exports = class LinkedList {
 
 	/**
 	 * Creates a new list with the results of calling a
-	 * provided function on every element in the calling list
+	 * provided function on every element in the calling list.
+	 * The Provided function has three arguments
+	 * - currentValue - The current element being processed in the array
+	 * - index - The index of the current element being processed in the array
+	 * - array - The array map was called upon
 	 * @param {function} func - the provided function
 	 * @example
 	 * let list = new LinkedList(1, 2, 3, 4, 5)
-	 * list = list.map(number => number * 2)
+	 * list = list.mapRecursive(number => number * 2)
+	 */
+	mapRecursive(func = () => {}) {
+		if (this.length === 0 || typeof func !== 'function') {
+			return new LinkedList()
+		}
+		let i = -1
+		const _map = (node, list) => {
+			if (node.next) {
+				_map(node.next, list)
+			}
+			i += 1
+			return list.unshift(func(node.value, i, this.head))
+		}
+		return _map(this.head, new LinkedList())
+	}
+
+	/**
+	 * Creates a new list with the results of calling a
+	 * provided function on every element in the calling list.
+	 * The Provided function has three arguments
+	 * - currentValue - The current element being processed in the array
+	 * - index - The index of the current element being processed in the array
+	 * - array - The array map was called upon
+	 * @param {function} func - the provided function
+	 * @example
+	 * let list = new LinkedList(1, 2, 3, 4, 5)
+	 * list = list.mapRecursive(number => number * 2)
 	 */
 	map(func = () => {}) {
 		if (this.length === 0 || typeof func !== 'function') {
 			return new LinkedList()
 		}
-		const _map = (node, list) => {
-			if (node.next) {
-				_map(node.next, list)
-			}
-			return list.addToHead(func(node.value))
+		const list = new LinkedList()
+		let node = this.head
+		let i = 0
+		while (node) {
+			list.unshift(func(node.value, i, this.head))
+			i += 1
+			node = node.next
 		}
-		return _map(this.head, new LinkedList())
+		return list
 	}
 
 	/**
@@ -151,6 +184,40 @@ module.exports = class LinkedList {
 	/**
 	 * Creates a new List with all elements that pass the test
 	 * implemented by the provided function
+	 * The provided funtion has three arguments
+	 * - element - The current element being processed in the array
+	 * - index - The index of the current element being processed in the array
+	 * - array - The array filter was called upon.
+	 * @param {function} func - the provided function
+	 * @example
+	 * const list = new LinkedList(1, 2, 3, 4, 5, 3, 2, 1, 6)
+	 * const filtered = list.filter(val => val > 3)
+	 */
+	filterRecursive(func = () => {}) {
+		if (this.length === 0 || typeof func !== 'function') {
+			return new LinkedList()
+		}
+		let i = -1
+		const _filter = (node, list) => {
+			if (node.next) {
+				_filter(node.next, list)
+			}
+			i += 1
+			if (func(node.value, i, this.head)) {
+				return list.unshift(node.value)
+			}
+			return list
+		}
+		return _filter(this.head, new LinkedList())
+	}
+
+	/**
+	 * Creates a new List with all elements that pass the test
+	 * implemented by the provided function
+	 * The provided funtion has three arguments
+	 * - element - The current element being processed in the array
+	 * - index - The index of the current element being processed in the array
+	 * - array - The array filter was called upon.
 	 * @param {function} func - the provided function
 	 * @example
 	 * const list = new LinkedList(1, 2, 3, 4, 5, 3, 2, 1, 6)
@@ -160,17 +227,17 @@ module.exports = class LinkedList {
 		if (this.length === 0 || typeof func !== 'function') {
 			return new LinkedList()
 		}
-		const _filter = (node, list) => {
-			if (node.next) {
-				_filter(node.next, list)
+		const list = new LinkedList()
+		let node = this.head
+		let i = 0
+		while (node) {
+			if (func(node.value, i, this.head)) {
+				list.unshift(node.value)
 			}
-
-			if (func(node.value)) {
-				return list.addToHead(node.value)
-			}
-			return list
+			i += 1
+			node = node.next
 		}
-		return _filter(this.head, new LinkedList())
+		return list
 	}
 
 	/**

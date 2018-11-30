@@ -25,21 +25,21 @@ describe('LinkedList', () => {
 		})
 	})
 
-	describe('#addToHead', () => {
+	describe('#unshift', () => {
 		let list
 		beforeEach(() => {
 			list = new LinkedList()
 		})
 
 		it('Can add one item', () => {
-			list.addToHead('one')
+			list.unshift('one')
 			assert.ok(list.head.value, 'one')
 			assert.strictEqual(list.head.next, null)
 			assert.strictEqual(list.length, 1)
 		})
 
 		it('Can add multiple items', () => {
-			list.addToHead('one', 'two', 'three')
+			list.unshift('one', 'two', 'three')
 			assert.ok(list.head.value, 'three')
 			assert.ok(list.head.next.value, 'two')
 			assert.ok(list.head.next.next.value, 'one')
@@ -48,9 +48,9 @@ describe('LinkedList', () => {
 
 		it('Can be chained', () => {
 			list
-				.addToHead('one')
-				.addToHead('two')
-				.addToHead('three')
+				.unshift('one')
+				.unshift('two')
+				.unshift('three')
 			assert.ok(list.head.value, 'three')
 			assert.ok(list.head.next.value, 'two')
 			assert.ok(list.head.next.next.value, 'one')
@@ -58,25 +58,25 @@ describe('LinkedList', () => {
 		})
 	})
 
-	describe('#removeFromHead', () => {
+	describe('#shift', () => {
 		let list
 		before(() => {
 			list = new LinkedList('one', 'two')
 		})
 
 		it('Can remove the item from the head', () => {
-			list.removeFromHead()
+			list.shift()
 			assert.ok(list.head.value, 'one')
 			assert.strictEqual(list.length, 1)
 		})
 
 		it('Returns the removed value', () => {
-			const value = list.removeFromHead()
+			const value = list.shift()
 			assert.ok(value, 'one')
 		})
 
 		it('Returns undefinded if there is nothing to remove', () => {
-			const value = list.removeFromHead()
+			const value = list.shift()
 			assert.strictEqual(value, null)
 		})
 	})
@@ -161,6 +161,24 @@ describe('LinkedList', () => {
 			const mapped = list.map(val => val * 2)
 			assert.ok(list.head.value, 6)
 			assert.ok(mapped.head.value, 12)
+		})
+
+		it('Passes the index to the function', () => {
+			const list = new LinkedList(1, 2, 3, 4, 5, 6)
+			let i = 0
+			list.map((val, index) => {
+				assert.strictEqual(index, i)
+				i += 1
+				return val * 2
+			})
+		})
+
+		it('Passes the original list to the function', () => {
+			const list = new LinkedList(1, 0)
+			list.map((val, index, mapList) => {
+				assert.deepEqual(list.head, mapList)
+				return val * 2
+			})
 		})
 	})
 
@@ -285,6 +303,24 @@ describe('LinkedList', () => {
 			assert.ok(filtered.head.next.next.value, 4)
 			assert.ok(filtered.head.next.next.value, 4)
 			assert.ok(filtered.length, 3)
+		})
+
+		it('Passes the index to the function', () => {
+			const list = new LinkedList(1, 2, 3, 4, 5, 6)
+			let i = 0
+			list.filter((val, index) => {
+				assert.strictEqual(index, i)
+				i += 1
+				return val < 3
+			})
+		})
+
+		it('Passes the original list to the function', () => {
+			const list = new LinkedList(1, 0)
+			list.filter((val, index, filterList) => {
+				assert.deepEqual(list.head, filterList)
+				return val !== 0
+			})
 		})
 	})
 

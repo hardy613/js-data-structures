@@ -191,7 +191,7 @@ module.exports = class LinkedList {
 	 * @param {function} func - the provided function
 	 * @example
 	 * const list = new LinkedList(1, 2, 3, 4, 5, 3, 2, 1, 6)
-	 * const filtered = list.filter(val => val > 3)
+	 * const filtered = list.filterRecursive(val => val > 3)
 	 */
 	filterRecursive(func = () => {}) {
 		if (this.length === 0 || typeof func !== 'function') {

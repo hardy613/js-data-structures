@@ -7,7 +7,7 @@ is a `Singly Linked List` where the node contains only a `value` and `next` prop
 
 ## API
 - [new Constructor](#new-constructor)
-- [unshift](#addtohead)
+- [unshift](#unshift)
 - [shift](#removefromhead)
 - [find](#find)
 - [remove](#remove)
@@ -31,9 +31,9 @@ const list = new LinkedList()
 list.unshift(1)
 
 list
-  .addTohead(2)
-  .addTohead(3)
-  .addTohead(4)
+  .unshift(2)
+  .unshift(3)
+  .unshift(4)
 
 list.unshift(5, 6, 7)
 ```

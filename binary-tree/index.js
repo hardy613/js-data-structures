@@ -80,10 +80,7 @@ module.exports = class BinaryTree {
 		while (node) {
 			if (node.value === value) {
 				if (node.left && node.right) {
-					replacement = node.left
-					if (inOrderSuccesssor) {
-						replacement = node.right
-					}
+					replacement = inOrderSuccesssor ? node.right : node.left
 				}
 
 				if (!replacement && (node.left || node.right)) {

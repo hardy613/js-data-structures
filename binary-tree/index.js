@@ -60,9 +60,9 @@ module.exports = class BinaryTree {
 	 * Delete a value and replace it with the
 	 * in-order predecessor or the in-order successor
 	 * @param {any} value - to delete
-	 * @param {boolean} inOrderSuccesssor - use in-order successor even if null
+	 * @param {boolean} inOrderSuccessor - use in-order successor even if null
 	 */
-	delete(value, inOrderSuccesssor = false) {
+	delete(value, inOrderSuccessor = false) {
 		let node = this.head
 		if (node.value === value) {
 			this.head = null
@@ -80,7 +80,7 @@ module.exports = class BinaryTree {
 		while (node) {
 			if (node.value === value) {
 				if (node.left && node.right) {
-					replacement = inOrderSuccesssor ? node.right : node.left
+					replacement = inOrderSuccessor ? node.right : node.left
 				}
 
 				if (!replacement && (node.left || node.right)) {

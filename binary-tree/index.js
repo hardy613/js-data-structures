@@ -57,49 +57,59 @@ module.exports = class BinaryTree {
 	}
 
 	/**
-	 * Delete a value and replace it with the
+	 * Remove a value and replace it with the
 	 * in-order predecessor or the in-order successor
-	 * @param {any} value - to delete
-	 * @param {boolean} inOrderSuccessor - use in-order successor even if null
+	 * @param {any} value - to remove
 	 */
-	delete(value, inOrderSuccessor = false) {
+	remove(value, useInOrderSuccessor = false) {
 		let node = this.head
-		if (node.value === value) {
-			this.head = null
-			return this
-		}
-
-		let parent = node
-		if (value < node.value) {
-			node = node.left
-		} else {
-			node = node.right
-		}
-
+		let parent = null
 		let replacement = null
 		while (node) {
-			if (node.value === value) {
-				if (node.left && node.right) {
-					replacement = inOrderSuccessor ? node.right : node.left
-				}
-
-				if (!replacement && (node.left || node.right)) {
-					replacement = node.left || node.right
-				}
-
-				if (value < parent.value) {
-					parent.left = replacement
+			if (value === node.value) {
+				if (!node.left && !node.right) {
+					if (parent && value < parent.value) {
+						parent.left = null
+					} else if (parent) {
+						parent.right = null
+					} else {
+						this.head = null
+					}
+				} else if (node.left && !node.right) {
+					if (parent && value < parent.value) {
+						parent.left = node.left
+					} else if (parent) {
+						parent.right = node.left
+					} else {
+						this.head = node.left
+					}
+				} else if (node.right && !node.left) {
+					if (parent && value < parent.value) {
+						parent.left = node.right
+					} else if (parent) {
+						parent.right = node.right
+					} else {
+						this.head = node.right
+					}
 				} else {
-					parent.right = replacement
+					if (useInOrderSuccessor) {
+						replacement = this._getFarthestNode('left', node.right)
+					} else {
+						replacement = this._getFarthestNode('right', node.left)
+					}
+
+					this.remove(replacement.value, useInOrderSuccessor)
+					node.value = replacement.value
 				}
 
 				return this
 			}
 
-			parent = node
 			if (value < node.value) {
+				parent = node
 				node = node.left
 			} else {
+				parent = node
 				node = node.right
 			}
 		}
@@ -144,14 +154,19 @@ module.exports = class BinaryTree {
 	/**
 	 * return the farthest node or null
 	 * @param {string} side
+	 * @param {BinaryTreeNode} startNode
 	 */
-	_getFarthestNode(side = 'left') {
+	_getFarthestNode(child = 'left', startNode) {
 		let node = this.head
+		if (startNode !== undefined) {
+			node = startNode
+		}
+
 		while (node) {
-			if (!node[side]) {
+			if (!node[child]) {
 				return node
 			}
-			node = node[side]
+			node = node[child]
 		}
 		return null
 	}

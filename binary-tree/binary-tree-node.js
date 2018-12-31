@@ -6,7 +6,7 @@ module.exports = class BinaryTreeNode {
 	 * @example
 	 * const node = new BirnaryTreeNode(5)
 	 */
-	constructor(value) {
+	constructor(value = null) {
 		this.value = value
 		this.left = null
 		this.right = null

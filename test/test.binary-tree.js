@@ -63,91 +63,136 @@ describe('BinaryTree', () => {
 		})
 	})
 
-	describe('#delete', () => {
+	describe('#remove', () => {
 		let tree
-		before(() => {
+		beforeEach(() => {
+			tree = new BinaryTree(5, 1, 7, 2, 3, 15, 13, 10, 14, 8)
+		})
+
+		it('returns the same tree if nothing is in the tree', () => {
 			tree = new BinaryTree()
+			const newTree = tree.remove(404)
+			assert.strictEqual(tree, newTree)
 		})
 
-		it('returns the same tree if the value is not found', () => {
-			tree
-				.insert(50)
-				.insert(25)
-				.insert(75)
-				.insert(100)
-			const clone = Object.assign(
-				Object.create(
-					Object.getPrototypeOf(tree),
-				),
-				tree,
-			)
-
-			tree.delete(404)
-			assert.deepEqual(tree, clone)
+		it('removes nothing if its not in the tree', () => {
+			tree = new BinaryTree(5, 4, 6)
+			const newTree = tree.remove(404)
+			assert.strictEqual(tree, newTree)
 		})
 
-		it('returns an empty tree if the node value matches the head', () => {
+		it('removes and replaces correctly', () => {
+			tree = new BinaryTree(5, 1, 7, 2, 3, 20, 11, 10, 13, 12, 14)
+			tree.remove(11, true)
+			assert.strictEqual(tree.head.right.right.left.value, 12)
+			assert.strictEqual(tree.head.right.right.left.right.value, 13)
+			assert.strictEqual(tree.head.right.right.left.right.right.value, 14)
+		})
+
+		it('can be chained', () => {
+			tree = new BinaryTree(5, 1, 7, 2)
 			tree
-				.insert(50)
-				.insert(25)
-				.insert(75)
-				.insert(100)
-			tree.delete(50)
+				.remove(5)
+				.remove(1)
+				.remove(7)
+				.remove(2)
 			assert.strictEqual(tree.head, null)
 		})
 
-		it('replaces with the in-order predecessor when useIOS=false', () => {
-			tree
-				.insert(11)
-				.insert(6)
-				.insert(19)
-				.insert(4)
-				.insert(8)
-				.insert(17)
-				.insert(43)
-				.insert(5)
-				.insert(10)
-				.insert(31)
-				.insert(49)
+		describe('##as a leaf', () => {
+			it('removes from the head', () => {
+				tree = new BinaryTree(5)
+				tree.remove(5)
+				assert.strictEqual(tree.head, null)
+			})
 
-			tree.delete(43)
-			assert.strictEqual(tree.head.right.right.value, 31)
+			it('removes a right child leaf', () => {
+				tree.remove(3)
+				assert.strictEqual(tree.head.left.right.right, null)
+				assert.strictEqual(tree.head.left.right.value, 2)
+			})
+
+			it('removes a left child leaf', () => {
+				tree.remove(8)
+				assert.strictEqual(tree.head.right.right.left.left.left, null)
+				assert.strictEqual(tree.head.right.right.left.left.value, 10)
+			})
 		})
 
-		it('replaces with the in-order successor when useIOS=true', () => {
-			tree
-				.insert(11)
-				.insert(6)
-				.insert(19)
-				.insert(4)
-				.insert(8)
-				.insert(17)
-				.insert(43)
-				.insert(5)
-				.insert(10)
-				.insert(31)
-				.insert(49)
+		describe('##with one branch on the left', () => {
+			it('removes from the head', () => {
+				tree = new BinaryTree(5, 1)
+				tree.remove(5)
+				assert.strictEqual(tree.head.value, 1)
+				assert.strictEqual(tree.head.left, null)
+			})
 
-			tree.delete(19, true)
-			assert.strictEqual(tree.head.right.right.value, 43)
+			it('replaces properly when less than the parent value', () => {
+				tree.remove(10)
+				assert.strictEqual(tree.head.right.right.left.left.value, 8)
+				assert.strictEqual(tree.head.right.right.left.left.left, null)
+			})
+
+			it('replaces properly when greater than the parent value', () => {
+				tree = new BinaryTree(5, 1, 7, 2, 3, 20, 13, 18, 9, 14)
+				tree.remove(18)
+				assert.strictEqual(tree.head.right.right.left.right.value, 14)
+				assert.strictEqual(tree.head.right.right.left.right.left, null)
+			})
 		})
 
-		it('replaces with the left or right node if only one is set', () => {
-			tree
-				.insert(11)
-				.insert(6)
-				.insert(19)
-				.insert(4)
-				.insert(8)
-				.insert(17)
-				.insert(43)
-				.insert(5)
-				.insert(10)
-				.insert(31)
-				.insert(49)
+		describe('##with one branch on the right', () => {
+			it('removes from the head', () => {
+				tree = new BinaryTree(5, 6)
+				tree.remove(5)
+				assert.strictEqual(tree.head.value, 6)
+				assert.strictEqual(tree.head.right, null)
+			})
 
-			tree.delete(4)
-			assert.strictEqual(tree.head.left.left.value, 5)
+			it('replaces properly when less than the parent value', () => {
+				tree.remove(10)
+				assert.strictEqual(tree.head.right.right.left.left.value, 8)
+				assert.strictEqual(tree.head.right.right.left.left.left, null)
+			})
+
+			it('replaces properly when greater than the parent value', () => {
+				tree.remove(2)
+				assert.strictEqual(tree.head.left.right.value, 3)
+				assert.strictEqual(tree.head.left.right.right, null)
+			})
+		})
+
+		describe('##with two branches', () => {
+			it('removes from the head', () => {
+				tree = new BinaryTree(5, 4, 6)
+				tree.remove(5)
+				assert.strictEqual(tree.head.value, 4)
+				assert.strictEqual(tree.head.left, null)
+				assert.strictEqual(tree.head.right.value, 6)
+			})
+
+			it('removes from the head, uses right branch when useInOrderSuccessor is true',
+				() => {
+					tree = new BinaryTree(5, 4, 6)
+					tree.remove(5, true)
+					assert.strictEqual(tree.head.value, 6)
+					assert.strictEqual(tree.head.right, null)
+					assert.strictEqual(tree.head.left.value, 4)
+				})
+
+			it('removes a child node', () => {
+				tree.remove(13)
+				assert.strictEqual(tree.head.right.right.left.value, 10)
+				assert.strictEqual(tree.head.right.right.left.left.value, 8)
+				assert.strictEqual(tree.head.right.right.left.right.value, 14)
+			})
+
+			it('removes a child node, uses right branch when useInOrderSuccessor is true',
+				() => {
+					tree.remove(13, true)
+					assert.strictEqual(tree.head.right.right.left.value, 14)
+					assert.strictEqual(tree.head.right.right.left.right, null)
+				})
 		})
 	})
 

@@ -64,25 +64,20 @@ describe('BinaryTree', () => {
 	})
 
 	describe('#remove', () => {
-		let tree
-		beforeEach(() => {
-			tree = new BinaryTree(5, 1, 7, 2, 3, 15, 13, 10, 14, 8)
-		})
-
 		it('returns the same tree if nothing is in the tree', () => {
-			tree = new BinaryTree()
+			const tree = new BinaryTree()
 			const newTree = tree.remove(404)
 			assert.strictEqual(tree, newTree)
 		})
 
 		it('removes nothing if its not in the tree', () => {
-			tree = new BinaryTree(5, 4, 6)
+			const tree = new BinaryTree(5, 4, 6)
 			const newTree = tree.remove(404)
 			assert.strictEqual(tree, newTree)
 		})
 
 		it('removes and replaces correctly', () => {
-			tree = new BinaryTree(5, 1, 7, 2, 3, 20, 11, 10, 13, 12, 14)
+			const tree = new BinaryTree(5, 1, 7, 2, 3, 20, 11, 10, 13, 12, 14)
 			tree.remove(11, true)
 			assert.strictEqual(tree.head.right.right.left.value, 12)
 			assert.strictEqual(tree.head.right.right.left.right.value, 13)
@@ -90,7 +85,7 @@ describe('BinaryTree', () => {
 		})
 
 		it('can be chained', () => {
-			tree = new BinaryTree(5, 1, 7, 2)
+			const tree = new BinaryTree(5, 1, 7, 2)
 			tree
 				.remove(5)
 				.remove(1)
@@ -101,18 +96,20 @@ describe('BinaryTree', () => {
 
 		describe('##as a leaf', () => {
 			it('removes from the head', () => {
-				tree = new BinaryTree(5)
+				const tree = new BinaryTree(5)
 				tree.remove(5)
 				assert.strictEqual(tree.head, null)
 			})
 
 			it('removes a right child leaf', () => {
+				const tree = new BinaryTree(5, 1, 7, 2, 3, 15, 13, 10, 14, 8)
 				tree.remove(3)
 				assert.strictEqual(tree.head.left.right.right, null)
 				assert.strictEqual(tree.head.left.right.value, 2)
 			})
 
 			it('removes a left child leaf', () => {
+				const tree = new BinaryTree(5, 1, 7, 2, 3, 15, 13, 10, 14, 8)
 				tree.remove(8)
 				assert.strictEqual(tree.head.right.right.left.left.left, null)
 				assert.strictEqual(tree.head.right.right.left.left.value, 10)
@@ -121,20 +118,21 @@ describe('BinaryTree', () => {
 
 		describe('##with one branch on the left', () => {
 			it('removes from the head', () => {
-				tree = new BinaryTree(5, 1)
+				const tree = new BinaryTree(5, 1)
 				tree.remove(5)
 				assert.strictEqual(tree.head.value, 1)
 				assert.strictEqual(tree.head.left, null)
 			})
 
 			it('replaces properly when less than the parent value', () => {
+				const tree = new BinaryTree(5, 1, 7, 2, 3, 15, 13, 10, 14, 8)
 				tree.remove(10)
 				assert.strictEqual(tree.head.right.right.left.left.value, 8)
 				assert.strictEqual(tree.head.right.right.left.left.left, null)
 			})
 
 			it('replaces properly when greater than the parent value', () => {
-				tree = new BinaryTree(5, 1, 7, 2, 3, 20, 13, 18, 9, 14)
+				const tree = new BinaryTree(5, 1, 7, 2, 3, 20, 13, 18, 9, 14)
 				tree.remove(18)
 				assert.strictEqual(tree.head.right.right.left.right.value, 14)
 				assert.strictEqual(tree.head.right.right.left.right.left, null)
@@ -143,19 +141,21 @@ describe('BinaryTree', () => {
 
 		describe('##with one branch on the right', () => {
 			it('removes from the head', () => {
-				tree = new BinaryTree(5, 6)
+				const tree = new BinaryTree(5, 6)
 				tree.remove(5)
 				assert.strictEqual(tree.head.value, 6)
 				assert.strictEqual(tree.head.right, null)
 			})
 
 			it('replaces properly when less than the parent value', () => {
+				const tree = new BinaryTree(5, 1, 7, 2, 3, 15, 13, 10, 14, 8)
 				tree.remove(10)
 				assert.strictEqual(tree.head.right.right.left.left.value, 8)
 				assert.strictEqual(tree.head.right.right.left.left.left, null)
 			})
 
 			it('replaces properly when greater than the parent value', () => {
+				const tree = new BinaryTree(5, 1, 7, 2, 3, 15, 13, 10, 14, 8)
 				tree.remove(2)
 				assert.strictEqual(tree.head.left.right.value, 3)
 				assert.strictEqual(tree.head.left.right.right, null)
@@ -164,7 +164,7 @@ describe('BinaryTree', () => {
 
 		describe('##with two branches', () => {
 			it('removes from the head', () => {
-				tree = new BinaryTree(5, 4, 6)
+				const tree = new BinaryTree(5, 4, 6)
 				tree.remove(5)
 				assert.strictEqual(tree.head.value, 4)
 				assert.strictEqual(tree.head.left, null)
@@ -173,7 +173,7 @@ describe('BinaryTree', () => {
 
 			it('removes from the head, uses right branch when useInOrderSuccessor is true',
 				() => {
-					tree = new BinaryTree(5, 4, 6)
+					const tree = new BinaryTree(5, 4, 6)
 					tree.remove(5, true)
 					assert.strictEqual(tree.head.value, 6)
 					assert.strictEqual(tree.head.right, null)
@@ -181,6 +181,7 @@ describe('BinaryTree', () => {
 				})
 
 			it('removes a child node', () => {
+				const tree = new BinaryTree(5, 1, 7, 2, 3, 15, 13, 10, 14, 8)
 				tree.remove(13)
 				assert.strictEqual(tree.head.right.right.left.value, 10)
 				assert.strictEqual(tree.head.right.right.left.left.value, 8)
@@ -189,6 +190,7 @@ describe('BinaryTree', () => {
 
 			it('removes a child node, uses right branch when useInOrderSuccessor is true',
 				() => {
+					const tree = new BinaryTree(5, 1, 7, 2, 3, 15, 13, 10, 14, 8)
 					tree.remove(13, true)
 					assert.strictEqual(tree.head.right.right.left.value, 14)
 					assert.strictEqual(tree.head.right.right.left.right, null)

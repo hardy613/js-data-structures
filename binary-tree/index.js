@@ -60,6 +60,7 @@ module.exports = class BinaryTree {
 	 * Remove a value and replace it with the
 	 * in-order predecessor or the in-order successor
 	 * @param {any} value - to remove
+	 * @param {boolean} useInOrderSuccessor - use the right node if both are available
 	 */
 	remove(value, useInOrderSuccessor = false) {
 		let node = this.head
@@ -98,7 +99,7 @@ module.exports = class BinaryTree {
 						replacement = this._getFarthestNode('right', node.left)
 					}
 
-					this.remove(replacement.value, useInOrderSuccessor)
+					this.remove(replacement.value)
 					node.value = replacement.value
 				}
 
@@ -137,16 +138,12 @@ module.exports = class BinaryTree {
 		return null
 	}
 
-	/**
-	 * get the left most node
-	 */
+	/** get the left most node */
 	min() {
 		return this._getFarthestNode('left')
 	}
 
-	/**
-	 * get the right most node
-	 */
+	/** get the right most node */
 	max() {
 		return this._getFarthestNode('right')
 	}
@@ -154,7 +151,7 @@ module.exports = class BinaryTree {
 	/**
 	 * return the farthest node or null
 	 * @param {string} side
-	 * @param {BinaryTreeNode} startNode
+	 * @param {binaryTreeNode} startNode
 	 */
 	_getFarthestNode(child = 'left', startNode) {
 		let node = this.head

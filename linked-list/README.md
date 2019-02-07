@@ -15,6 +15,7 @@ is a `Singly Linked List` where the node contains only a `value` and `next` prop
 - [reduce](#reduce)
 - [filter](#filter)
 - [get](#get)
+- [forEach](#forEach)
 
 ### `new` Constructor
 Initialize a new LinkedList, excepts no values, one value, or multiple values
@@ -90,4 +91,17 @@ Returns a node at the provided index
 ```js
 const list = new LinkedList('two', 'one', 'zero')
 const node = list.get(0)
+```
+
+
+### `forEach`
+
+Iterates over the list calling the provided function, the provided function 
+has three parameters
+1. The current node value
+2. The current node index
+3. The list forEach is running on
+```js
+const list = new LinkedList(4, 3, 2, 1, 0)
+list.forEach(v => console.log(v))
 ```

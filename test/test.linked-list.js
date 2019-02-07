@@ -1,6 +1,5 @@
 const assert = require('assert')
 const LinkedList = require('../linked-list')
-const BinaryTree = require('../binary-tree')
 
 describe('LinkedList', () => {
 	describe('#constructor', () => {

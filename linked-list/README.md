@@ -15,6 +15,7 @@ is a `Singly Linked List` where the node contains only a `value` and `next` prop
 - [reduce](#reduce)
 - [filter](#filter)
 - [get](#get)
+- [forEach](#forEach)
 
 ### `new` Constructor
 Initialize a new LinkedList, excepts no values, one value, or multiple values

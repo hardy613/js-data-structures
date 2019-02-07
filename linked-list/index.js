@@ -267,4 +267,34 @@ module.exports = class LinkedList {
 		}
 		return null
 	}
-}
+
+	/**
+	 * Iterates over the list calling the provided
+	 * function
+	 * @params {function} func - the provided iterator function
+	 * @params {this} thisArg - a context to call the provided function
+	 * @example
+	 * const list = new LinkedList(4, 3, 2, 1, 0)
+	 * list.forEach(v => console.log(v))
+	 *
+	 * The provided function has three parameters
+	 * 1. the current node value
+	 * 2. the current node index
+	 * 3, the list forEach is running on
+	 */
+	forEach(func = () => {}, thisArg = null) {
+		if (this.length === 0 || typeof func !== 'function') {
+			return null
+		}
+		let node = this.head
+		let i = 0
+		while (node) {
+			func.call(thisArg || this, node.value, i, this.head)
+			i += 1
+			node = node.next
+		}
+		// the expected behaviour is always returning undefined
+		// however this breaks our design pattern so we'll return null
+		return null
+	}
+}	

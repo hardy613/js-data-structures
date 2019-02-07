@@ -91,3 +91,16 @@ Returns a node at the provided index
 const list = new LinkedList('two', 'one', 'zero')
 const node = list.get(0)
 ```
+
+
+### `forEach`
+
+Iterates over the list calling the provided function
+The provided function has three parameters
+1. The current node value
+2. The current node index
+3. The list forEach is running on
+```js
+const list = new LinkedList(4, 3, 2, 1, 0)
+list.forEach(v => console.log(v))
+```

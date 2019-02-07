@@ -96,8 +96,8 @@ const node = list.get(0)
 
 ### `forEach`
 
-Iterates over the list calling the provided function
-The provided function has three parameters
+Iterates over the list calling the provided function, the provided function 
+has three parameters
 1. The current node value
 2. The current node index
 3. The list forEach is running on

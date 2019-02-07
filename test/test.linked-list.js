@@ -361,4 +361,55 @@ describe('LinkedList', () => {
 			assert.ok(node3.value, 3)
 		})
 	})
+
+	describe('#forEach', () => {
+		it('returns null if the length is 0', () => {
+			const list = new LinkedList()
+			assert.strictEqual(list.forEach(v => console.log(v)), null)
+		})
+
+		it('returns null if the first argument is not a function', () => {
+			const list = new LinkedList()
+			assert.strictEqual(list.forEach(true), null)
+		})
+
+		it('iterates over the values the list', () => {
+			const list = new LinkedList(4, 3, 2, 1, 0)
+			list.forEach((v, i) => {
+				assert.strictEqual(v, i)
+			})
+		})
+
+		it('passes in the current index', () => {
+			const list = new LinkedList(4, 3, 2, 1, 0)
+			list.forEach((v, i) => {
+				assert.notStrictEqual(i, null)
+				assert.notStrictEqual(i, undefined)
+			})
+		})
+
+		it('passes in the list the forEach is running on', () => {
+			const list = new LinkedList(4, 3, 2, 1, 0)
+			list.forEach((v, i, l) => {
+				assert.strictEqual(l, list.head)
+			})
+		})
+
+
+		it('defaults to list context with no second agrument', () => {
+			const testClass = class test {}
+			const list = new LinkedList(4, 3, 2, 1, 0)
+			list.forEach(function iterator(v, i, l) {
+				assert.ok(this instanceof LinkedList)
+			})
+		})
+
+		it('accepts a context as a second agrument', () => {
+			const testClass = class test {}
+			const list = new LinkedList(4, 3, 2, 1, 0)
+			list.forEach(function iterator(v, i, l) {
+				assert.ok(this instanceof testClass)
+			}, new testClass())
+		})
+	})
 })
